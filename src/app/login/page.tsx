@@ -3,20 +3,33 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { Mail, Lock, ArrowRight, AlertCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Placeholder for Supabase auth
-    setTimeout(() => setLoading(false), 2000);
+    setError('');
+
+    const { error: err } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (err) {
+      setError(err.message);
+      setLoading(false);
+    } else {
+      window.location.href = '/';
+    }
   };
 
   return (
@@ -35,6 +48,13 @@ export default function LoginPage() {
             </h1>
             <p className="text-text-secondary mb-8">Sign in to your account</p>
 
+            {error && (
+              <div className="mb-4 p-3 rounded-lg bg-error/10 border border-error/20 flex items-center gap-2 text-error text-sm">
+                <AlertCircle className="w-4 h-4" />
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-white text-sm font-medium mb-2">Email</label>
@@ -45,6 +65,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
+                    required
                     className="w-full pl-12 pr-4 py-3 rounded-xl bg-bg-tertiary border border-border text-white placeholder-text-tertiary focus:outline-none focus:border-accent transition-colors"
                   />
                 </div>
@@ -59,19 +80,10 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
+                    required
                     className="w-full pl-12 pr-4 py-3 rounded-xl bg-bg-tertiary border border-border text-white placeholder-text-tertiary focus:outline-none focus:border-accent transition-colors"
                   />
                 </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" className="w-4 h-4 rounded bg-bg-tertiary border-border accent-accent" />
-                  <span className="text-text-secondary text-sm">Remember me</span>
-                </label>
-                <Link href="/forgot-password" className="text-accent text-sm hover:underline">
-                  Forgot password?
-                </Link>
               </div>
 
               <button
@@ -91,7 +103,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center">
-              <span className="text-text-secondary">Don't have an account? </span>
+              <span className="text-text-secondary">Don&apos;t have an account? </span>
               <Link href="/register" className="text-accent hover:underline">
                 Sign up
               </Link>

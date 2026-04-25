@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 import ClientLayout from "@/components/ClientLayout";
 import CookieConsent from "@/components/CookieConsent";
 
@@ -18,8 +19,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EditGuide | Premium Video Editing Guides",
-  description: "Professional color grading guides for DaVinci Resolve, Premiere Pro, and CapCut. Transform your video content.",
+  title: "EditGuide | Premium Video Editing Presets",
+  description: "Professional color grading presets for DaVinci Resolve, Premiere Pro, and CapCut. Transform your video content.",
 };
 
 export default function RootLayout({
@@ -39,12 +40,14 @@ export default function RootLayout({
         `}</style>
       </head>
       <body className="min-h-screen flex flex-col bg-bg-primary text-white antialiased">
-        <CartProvider>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-          <CookieConsent />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+            <CookieConsent />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

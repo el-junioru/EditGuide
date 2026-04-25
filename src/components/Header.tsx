@@ -37,9 +37,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient flex items-center justify-center">
-              <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>E</span>
-            </div>
+            <img src="/logo.png" alt="EditGuide" className="w-10 h-10 rounded-lg object-contain bg-bg-secondary" />
             <span className="text-xl font-semibold text-gradient hidden sm:block" style={{ fontFamily: 'var(--font-display)' }}>
               EDITGUIDE
             </span>

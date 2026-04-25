@@ -11,11 +11,9 @@ export default function PageLoader() {
         transition={{ duration: 0.3 }}
         className="text-center"
       >
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-12 h-12 rounded-full border-3 border-accent/30 border-t-accent mx-auto mb-4"
-        />
+        <div className="w-12 h-12 mx-auto mb-4 overflow-hidden">
+          <img src="/logo.png" alt="EditGuide" className="w-full h-full" />
+        </div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -23,7 +21,7 @@ export default function PageLoader() {
           className="text-gradient text-xl font-semibold"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          PRESETS
+          EDITGUIDE
         </motion.p>
       </motion.div>
     </div>

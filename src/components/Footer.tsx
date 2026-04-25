@@ -54,9 +54,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient flex items-center justify-center">
-                <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>P</span>
-              </div>
+              <img src="/logo.png" alt="EditGuide" className="w-10 h-10 rounded-lg object-contain bg-bg-tertiary" />
               <span className="text-xl font-semibold text-gradient" style={{ fontFamily: 'var(--font-display)' }}>
                 EDITGUIDE
               </span>
