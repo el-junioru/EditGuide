@@ -38,10 +38,10 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-gradient flex items-center justify-center">
-              <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>P</span>
+              <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>E</span>
             </div>
             <span className="text-xl font-semibold text-gradient hidden sm:block" style={{ fontFamily: 'var(--font-display)' }}>
-              PRESETS
+              EDITGUIDE
             </span>
           </Link>
 

@@ -54,7 +54,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">6. Contact</h2>
               <p className="text-text-secondary">
-                If you have questions about this Privacy Policy, please contact us at support@presets.com
+                If you have questions about this Privacy Policy, please contact us at support@editguide.com
               </p>
             </section>
           </div>

@@ -29,7 +29,7 @@ export default function RefundPage() {
                 To request a refund:
               </p>
               <ol className="list-decimal list-inside text-text-secondary mt-2 space-y-2">
-                <li>Email us at support@presets.com</li>
+                <li>Email us at support@editguide.com</li>
                 <li>Include your order number</li>
                 <li>Mention the preset name</li>
                 <li>Briefly explain why you're requesting a refund</li>
@@ -53,7 +53,7 @@ export default function RefundPage() {
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">Questions?</h2>
               <p className="text-text-secondary">
-                Contact us at support@presets.com for refund questions.
+                Contact us at support@editguide.com for refund questions.
               </p>
             </section>
           </div>

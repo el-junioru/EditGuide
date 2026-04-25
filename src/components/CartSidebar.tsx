@@ -53,7 +53,7 @@ export default function CartSidebar() {
                   <ShoppingBag className="w-16 h-16 text-text-tertiary mb-4" />
                   <h3 className="text-lg font-semibold text-white mb-2">Your cart is empty</h3>
                   <p className="text-text-secondary text-sm">
-                    Add some presets to get started
+                    Add some guides to get started
                   </p>
                 </div>
               ) : (

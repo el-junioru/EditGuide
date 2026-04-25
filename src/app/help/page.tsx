@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: "Can I get a refund?",
-    answer: "Yes! We offer a 14-day money-back guarantee. Contact support@presets.com for a refund.",
+    answer: "Yes! We offer a 14-day money-back guarantee. Contact support@editguide.com for a refund.",
   },
   {
     question: "Do you offer bundle discounts?",
@@ -55,10 +55,10 @@ export default function HelpPage() {
               <h3 className="text-white font-semibold mb-2">Licensing Info</h3>
               <p className="text-text-secondary text-sm">Usage rights and restrictions.</p>
             </Link>
-            <a href="mailto:support@presets.com" className="p-6 rounded-xl bg-bg-secondary border border-border hover:border-accent transition-colors">
+            <a href="mailto:support@editguide.com" className="p-6 rounded-xl bg-bg-secondary border border-border hover:border-accent transition-colors">
               <AlertCircle className="w-8 h-8 text-accent mb-3" />
               <h3 className="text-white font-semibold mb-2">Email Support</h3>
-              <p className="text-text-secondary text-sm">support@presets.com</p>
+              <p className="text-text-secondary text-sm">support@editguide.com</p>
             </a>
           </div>
 

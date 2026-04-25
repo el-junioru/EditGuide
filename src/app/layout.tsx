@@ -18,8 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Presets | Premium Video Editing Presets",
-  description: "Professional color grading presets for DaVinci Resolve, Premiere Pro, and CapCut. Transform your video content.",
+  title: "EditGuide | Premium Video Editing Guides",
+  description: "Professional color grading guides for DaVinci Resolve, Premiere Pro, and CapCut. Transform your video content.",
 };
 
 export default function RootLayout({

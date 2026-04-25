@@ -52,7 +52,7 @@ export default function LicensePage() {
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">Questions</h2>
               <p className="text-text-secondary">
-                Contact us at support@presets.com for licensing questions.
+                Contact us at support@editguide.com for licensing questions.
               </p>
             </section>
           </div>

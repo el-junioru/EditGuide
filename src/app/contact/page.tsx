@@ -89,7 +89,7 @@ export default function ContactPage() {
 
           <div className="mt-8 p-4 rounded-xl bg-bg-secondary border border-border">
             <p className="text-text-secondary text-sm">
-              For fastest response, email us directly at <span className="text-accent">support@presets.com</span>
+              For fastest response, email us directly at <span className="text-accent">support@editguide.com</span>
             </p>
           </div>
         </div>

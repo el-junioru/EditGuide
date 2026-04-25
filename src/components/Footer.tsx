@@ -58,7 +58,7 @@ export default function Footer() {
                 <span className="text-white font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>P</span>
               </div>
               <span className="text-xl font-semibold text-gradient" style={{ fontFamily: 'var(--font-display)' }}>
-                PRESETS
+                EDITGUIDE
               </span>
             </Link>
             <p className="text-text-secondary text-sm mb-6 max-w-xs">
@@ -142,7 +142,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-text-tertiary text-sm">
-            © 2024 Presets. All rights reserved.
+            © 2024 EditGuide. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-text-tertiary text-sm">Payments powered by</span>
