@@ -7,9 +7,9 @@ import { Search, ShoppingCart, User, X, Menu } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 const softwareItems = [
-  { name: 'DaVinci Resolve', href: '/?software=davinci', color: 'text-[#FF6B35]' },
-  { name: 'Premiere Pro', href: '/?software=premiere', color: 'text-[#9999FF]' },
-  { name: 'CapCut', href: '/?software=capcut', color: 'text-[#00F2EA]' },
+  { name: 'DaVinci Resolve', href: '/?software=davinci', color: 'text-text-secondary' },
+  { name: 'Premiere Pro', href: '/?software=premiere', color: 'text-text-secondary' },
+  { name: 'CapCut', href: '/?software=capcut', color: 'text-text-secondary' },
 ];
 
 export default function Header() {
