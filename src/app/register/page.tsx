@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, Lock, ArrowLeft, ArrowRight, AlertCircle, CheckCircle, MailOpen } from 'lucide-react';
+import { Mail, Lock, ArrowLeft, ArrowRight, AlertCircle, CheckCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { supabase } from '@/lib/supabase';
@@ -17,6 +18,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [step, setStep] = useState<Step>('register');
+  const router = useRouter();
 
   const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,22 +31,23 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
 
-    // Send OTP first to get verification code
-    const { error: otpError } = await supabase.auth.signInWithOtp({
+    // Sign up - sends confirmation email with code
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
+      password,
     });
 
-    if (otpError) {
-      if (otpError.message.includes('rate limit')) {
-        setError('Rate limit exceeded. Please wait a moment and try again.');
+    if (signUpError) {
+      if (signUpError.message.includes('rate limit')) {
+        setError('Too many attempts. Please wait and try again.');
       } else {
-        setError(otpError.message);
+        setError(signUpError.message);
       }
       setLoading(false);
       return;
     }
 
-    // OTP sent, now show code entry
+    // Show code input
     setStep('verify');
     setLoading(false);
   };
@@ -54,45 +57,39 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
 
-    // Verify the code via signInWithPassword with the code as password
-    // This is a workaround - we'll try the code as password
-    const { error: verifyError } = await supabase.auth.signInWithPassword({
+    // Use the code as password to verify
+    const { error: confirmError } = await supabase.auth.signInWithPassword({
       email,
       password: code,
     });
 
-    if (verifyError) {
-      // Code didn't work as password - verification failed
+    if (confirmError) {
       setError('Invalid code. Please check and try again.');
       setLoading(false);
       return;
     }
 
-    // If we get here, the code worked - now create the account
-    // Actually signUp with the verified email
-    const { error: signUpError } = await supabase.auth.signUp({
+    // Sign in with actual password
+    await supabase.auth.signInWithPassword({
       email,
-      password: password,
+      password,
     });
-
-    if (signUpError && !signUpError.message.includes('already registered')) {
-      // Continue even if signup fails - they might already exist
-    }
 
     setStep('success');
     setLoading(false);
   };
 
-  const handleResendCode = async () => {
+  const handleResendEmail = async () => {
     setLoading(true);
     setError('');
 
-    const { error: otpError } = await supabase.auth.signInWithOtp({
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
+      password,
     });
 
-    if (otpError) {
-      setError(otpError.message);
+    if (signUpError && !signUpError.message.includes('already registered')) {
+      setError(signUpError.message);
     }
     setLoading(false);
   };
@@ -194,7 +191,7 @@ export default function RegisterPage() {
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : (
                       <>
-                        Create Account
+                        Send Code
                         <ArrowRight className="w-5 h-5" />
                       </>
                     )}
@@ -204,25 +201,18 @@ export default function RegisterPage() {
             ) : (
               <>
                 <button
-                  onClick={() => {
-                    setStep('register');
-                    setCode('');
-                  }}
+                  onClick={() => setStep('register')}
                   className="flex items-center gap-2 text-text-secondary hover:text-white mb-4"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Go back
                 </button>
 
-                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mx-auto mb-4">
-                  <MailOpen className="w-8 h-8 text-accent" />
-                </div>
-
-                <h1 className="text-3xl font-semibold text-white mb-2 text-center" style={{ fontFamily: 'var(--font-display)' }}>
-                  Enter Verification Code
+                <h1 className="text-3xl font-semibold text-white mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                  Enter Code
                 </h1>
-                <p className="text-text-secondary mb-6 text-center">
-                  We sent a 6-digit code to<br/>
+                <p className="text-text-secondary mb-6">
+                  We sent a code to<br/>
                   <span className="text-white font-medium">{email}</span>
                 </p>
 
@@ -235,7 +225,7 @@ export default function RegisterPage() {
 
                 <form onSubmit={handleVerifyCode} className="space-y-6">
                   <div>
-                    <label className="block text-white text-sm font-medium mb-2 text-center">6-digit code from email</label>
+                    <label className="block text-white text-sm font-medium mb-2 text-center">Enter code from email</label>
                     <input
                       type="text"
                       value={code}
@@ -256,7 +246,7 @@ export default function RegisterPage() {
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : (
                       <>
-                        Verify Code
+                        Verify & Create Account
                         <ArrowRight className="w-5 h-5" />
                       </>
                     )}
@@ -266,7 +256,8 @@ export default function RegisterPage() {
                 <p className="mt-4 text-center text-text-tertiary text-sm">
                   Didn't receive it?{' '}
                   <button 
-                    onClick={handleResendCode}
+                    type="button"
+                    onClick={handleResendEmail}
                     disabled={loading}
                     className="text-accent hover:underline disabled:opacity-50"
                   >
